@@ -31,7 +31,7 @@ const SortPopup = ({ items }) => {
     <div className="sort" ref={sortElement}>
       <div className="sort__label">
         <svg
-          className={classNames('sort__svg', { rotated: visiblePopUp })}
+          className={classNames('sort__icon', { rotated: visiblePopUp })}
           width="10"
           height="6"
           viewBox="0 0 10 6"
