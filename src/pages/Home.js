@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Categories, SortPopup } from '../components/';
 
 const Home = () => {
