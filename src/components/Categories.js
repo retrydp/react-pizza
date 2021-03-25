@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
-function Categories({ items, onClick }) {
+function Categories({ items, onClickItem }) {
   const [activeItem, setActiveItem] = useState(null);
 
-  const onSelectItem = (idx, i) => {
-    setActiveItem(idx);
-    onClick(i);
+  const onSelectItem = (item) => {
+    setActiveItem(item);
   };
 
   return (
     <div className="categories">
       <ul>
         <li
-          className={activeItem === null ? 'active' : ''}
-          onClick={() => onSelectItem(null, 'Все')}>
+          className={classNames('categories__item', { active: activeItem !== 0 && !activeItem })}
+          onClick={() => onSelectItem(null)}>
           Все
         </li>
-        {items &&
-          items.map((i, idx) => (
-            <li
-              onClick={() => onSelectItem(idx, i)}
-              className={activeItem === idx ? 'active' : ''}
-              key={`${i}_${idx}`}>
-              {i}
-            </li>
-          ))}
+        {items.map((i, idx) => (
+          <li
+            onClick={() => onSelectItem(idx)}
+            className={classNames('categories__item', { active: activeItem === idx })}
+            key={`${i}_${idx}`}>
+            {i}
+          </li>
+        ))}
       </ul>
     </div>
   );

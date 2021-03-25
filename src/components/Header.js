@@ -3,7 +3,7 @@ import logoSvg from '../assets/img/pizza-logo.svg';
 
 import Button from './Button';
 
-function Header() {
+const Header = () => {
   return (
     <div className="header">
       <div className="container">
@@ -52,5 +52,5 @@ function Header() {
       </div>
     </div>
   );
-}
+};
 export default Header;
