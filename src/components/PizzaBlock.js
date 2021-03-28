@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 
 export const PizzaBlock = ({ name, imageUrl, price, types, sizes }) => {
   const [activeType, setActiveType] = useState(types[0]);
@@ -69,14 +68,6 @@ export const PizzaBlock = ({ name, imageUrl, price, types, sizes }) => {
       </div>
     </div>
   );
-};
-
-PizzaBlock.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  types: PropTypes.arrayOf(PropTypes.number).isRequired,
-  sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default PizzaBlock;
