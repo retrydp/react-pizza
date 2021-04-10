@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
-const Categories = React.memo(({ activeCategory, items, onClickItem }) => {
+const Categories = React.memo(({ activeCategory, items, onClickCategory }) => {
   return (
     <div className="categories">
       <ul>
@@ -9,12 +10,12 @@ const Categories = React.memo(({ activeCategory, items, onClickItem }) => {
           className={classNames('categories__item', {
             active: activeCategory !== 0 && !activeCategory,
           })}
-          onClick={() => onClickItem(null)}>
+          onClick={() => onClickCategory(null)}>
           Все
         </li>
         {items.map((i, idx) => (
           <li
-            onClick={() => onClickItem(idx)}
+            onClick={() => onClickCategory(idx)}
             className={classNames('categories__item', { active: activeCategory === idx })}
             key={`${i}_${idx}`}>
             {i}
@@ -24,6 +25,13 @@ const Categories = React.memo(({ activeCategory, items, onClickItem }) => {
     </div>
   );
 });
+
+Categories.defaultProps = { activeCategory: null, items: [] };
+
+Categories.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClickCategory: PropTypes.func.isRequired,
+};
 
 Categories.defaultProps = { activeCategory: null, items: [] };
 
