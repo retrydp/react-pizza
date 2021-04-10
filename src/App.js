@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { Route } from 'react-router';
 import { useDispatch } from 'react-redux';
 
-import { setPizzas } from './redux/actions/pizzas-action';
+import { fetchPizzas } from './redux/actions/pizzas-action';
 
 import { Header } from './components/';
 import { Home, Cart } from './pages/';
@@ -12,9 +11,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get('http://localhost:3001/pizzas').then(({ data }) => {
-      dispatch(setPizzas(data));
-    });
+    dispatch(fetchPizzas());
   }, [dispatch]);
 
   return (
