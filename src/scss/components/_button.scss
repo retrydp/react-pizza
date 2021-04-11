@@ -145,4 +145,26 @@
       font-size: 16px;
     }
   }
+  &--active {
+    background-color: $orange;
+
+    &,
+    span {
+      color: #fff;
+    }
+
+    svg {
+      path {
+        fill: #fff;
+      }
+    }
+
+    i {
+      background-color: #fff;
+      color: $orange;
+    }
+    &:hover {
+      background-color: darken($orange, 8%);
+    }
+  }
 }
