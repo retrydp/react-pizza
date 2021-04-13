@@ -11,6 +11,21 @@ const getValues = (obj) =>
     .flat();
 
 const cart = (state = initialState, action) => {
+  const construct = (items, obj, stateValue = state) => {
+    return items
+      ? {
+          ...stateValue,
+          items,
+          totalCount: getValues(items).length,
+          totalPrice: getTotalPrice(getValues(items)),
+        }
+      : {
+          ...stateValue,
+          totalCount: getValues(obj).length,
+          totalPrice: getTotalPrice(getValues(obj)),
+        };
+  };
+
   switch (action.type) {
     case 'ADD_PIZZA_CART': {
       const currentPizzaItems = !state.items[action.payload.id]
@@ -25,12 +40,7 @@ const cart = (state = initialState, action) => {
         },
       };
 
-      return {
-        ...state,
-        items: newItems,
-        totalCount: getValues(newItems).length,
-        totalPrice: getTotalPrice(getValues(newItems)),
-      };
+      return construct(newItems);
     }
 
     case 'CLEAR_CART':
@@ -39,12 +49,44 @@ const cart = (state = initialState, action) => {
     case 'REMOVE_CART_ITEM':
       const { [action.payload]: _, ...rest } = state.items; // реализация без delete
 
-      return {
+      return construct(rest);
+
+    case 'ADD_CART_ITEM': {
+      const newItems = [...state.items[action.payload].items, state.items[action.payload].items[0]];
+      const newState = {
         ...state,
-        items: rest,
-        totalPrice: getTotalPrice(getValues(rest)),
-        totalCount: getValues(rest).length,
+        items: {
+          ...state.items,
+          [action.payload]: {
+            items: newItems,
+            totalPrice: getTotalPrice(newItems),
+          },
+        },
+        totalPrice: getTotalPrice(newItems),
+        totalCount: getValues(newItems).length,
       };
+
+      return construct(null, newState.items, newState);
+    }
+
+    case 'REDUCE_CART_ITEM': {
+      const oldItems = state.items[action.payload].items;
+      const newItems = oldItems.length > 1 ? state.items[action.payload].items.slice(1) : oldItems;
+      const newState = {
+        ...state,
+        items: {
+          ...state.items,
+          [action.payload]: {
+            items: newItems,
+            totalPrice: getTotalPrice(newItems),
+          },
+        },
+        totalPrice: getTotalPrice(newItems),
+        totalCount: getValues(newItems).length,
+      };
+
+      return construct(null, newState.items, newState);
+    }
 
     default:
       return state;
