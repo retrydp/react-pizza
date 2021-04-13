@@ -5,6 +5,10 @@ const initialState = {
 };
 
 const getTotalPrice = (pizzas) => pizzas.reduce((sum, { price }) => sum + price, 0);
+const getValues = (obj) =>
+  Object.values(obj)
+    .map(({ items }) => items)
+    .flat();
 
 const cart = (state = initialState, action) => {
   switch (action.type) {
@@ -21,21 +25,26 @@ const cart = (state = initialState, action) => {
         },
       };
 
-      const allPizzas = Object.values(newItems)
-        .map(({ items }) => items)
-        .flat();
-      const totalPrice = getTotalPrice(allPizzas);
-
       return {
         ...state,
         items: newItems,
-        totalCount: allPizzas.length,
-        totalPrice: totalPrice,
+        totalCount: getValues(newItems).length,
+        totalPrice: getTotalPrice(getValues(newItems)),
       };
     }
 
     case 'CLEAR_CART':
       return initialState;
+
+    case 'REMOVE_CART_ITEM':
+      const { [action.payload]: _, ...rest } = state.items; // реализация без delete
+
+      return {
+        ...state,
+        items: rest,
+        totalPrice: getTotalPrice(getValues(rest)),
+        totalCount: getValues(rest).length,
+      };
 
     default:
       return state;

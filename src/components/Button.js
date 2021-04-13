@@ -4,13 +4,13 @@ import classNames from 'classnames';
 
 const Button = ({ onClick, className, outline, children }) => {
   return (
-    <button
+    <div
       onClick={onClick}
       className={classNames('button', className, {
         'button--outline': outline,
       })}>
       {children}
-    </button>
+    </div>
   );
 };
 
