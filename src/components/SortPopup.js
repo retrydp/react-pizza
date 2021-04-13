@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 const SortPopup = React.memo(({ items, activeSortType, onClickSortType }) => {
   const [visiblePopUp, setVisiblePopUp] = useState(false);
   const sortElement = useRef();
-
   const activeLabel = items.find(({ type }) => type === activeSortType).name;
 
   const toggleVisiblePopup = () => {

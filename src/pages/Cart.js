@@ -1,10 +1,10 @@
 import React from 'react';
-import { CartItem, Button } from '../components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { clearCart, removeCartItem, addCount, reduceCount } from '../redux/actions/cart-action';
 import cartEmpty from '../assets/img/empty-cart.png';
+import { CartItem, Button } from '../components';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -26,9 +26,11 @@ const Cart = () => {
   const onReduceCount = (id) => {
     dispatch(reduceCount(id));
   };
+
   const onClickOrder = () => {
-    alert(JSON.stringify(items));
+    alert(JSON.stringify(Object.values(items)));
   };
+
   return (
     <div className="content">
       <div className="container container--cart">
@@ -146,7 +148,6 @@ const Cart = () => {
                       strokeLinejoin="round"
                     />
                   </svg>
-
                   <span>Вернуться назад</span>
                 </Link>
                 <Button className="pay-btn" onClick={onClickOrder}>
