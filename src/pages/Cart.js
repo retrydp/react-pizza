@@ -1,5 +1,5 @@
 import React from 'react';
-import { CartItem } from '../components';
+import { CartItem, Button } from '../components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -26,7 +26,9 @@ const Cart = () => {
   const onReduceCount = (id) => {
     dispatch(reduceCount(id));
   };
-
+  const onClickOrder = () => {
+    alert(JSON.stringify(items));
+  };
   return (
     <div className="content">
       <div className="container container--cart">
@@ -107,6 +109,7 @@ const Cart = () => {
             <div className="content__items"></div>
             {addedPizzas.map(({ name, type, size, id }) => (
               <CartItem
+                key={`${id + size}`}
                 id={id}
                 name={name}
                 type={type}
@@ -146,9 +149,9 @@ const Cart = () => {
 
                   <span>Вернуться назад</span>
                 </Link>
-                <div className="button pay-btn">
+                <Button className="pay-btn" onClick={onClickOrder}>
                   <span>Оплатить сейчас</span>
-                </div>
+                </Button>
               </div>
             </div>
           </div>
