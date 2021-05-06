@@ -18,7 +18,6 @@ export const PizzaBlock = ({
 
   const availableTypes = ['тонкое', 'традиционное'];
   const availableSizes = [26, 30, 40];
-  console.log(sizes);
   const onSelectType = (type) => {
     setActiveType(type);
   };
