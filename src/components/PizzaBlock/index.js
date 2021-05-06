@@ -18,7 +18,7 @@ export const PizzaBlock = ({
 
   const availableTypes = ['тонкое', 'традиционное'];
   const availableSizes = [26, 30, 40];
-
+  console.log(sizes);
   const onSelectType = (type) => {
     setActiveType(type);
   };
@@ -63,7 +63,7 @@ export const PizzaBlock = ({
               key={size}
               onClick={() => onSelectSize(idx)}
               className={classNames('pizza__size', {
-                active: activeSize === idx,
+                active: activeSize === sizes.indexOf(size),
                 disabled: !sizes.includes(size),
               })}>
               {size} см.
